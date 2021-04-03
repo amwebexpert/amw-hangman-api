@@ -9,6 +9,8 @@ Deployed here: https://amw-hangman-api.herokuapp.com/
 ## References
 
 * https://www.joshmorony.com/deploying-a-production-nestjs-server-on-heroku/
+* https://www.freecodecamp.org/news/how-to-deploy-a-nodejs-app-to-heroku-from-github-without-installing-heroku-on-your-machine-433bec770efe/
+
 
 
 
