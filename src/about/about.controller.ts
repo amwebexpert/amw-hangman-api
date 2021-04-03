@@ -2,7 +2,7 @@ import { Get } from '@nestjs/common';
 import { Controller } from '@nestjs/common';
 import { AboutService } from './about.service';
 
-@Controller('about')
+@Controller('/api/v1/about')
 export class AboutController {
 
     constructor(private readonly aboutService: AboutService) {
