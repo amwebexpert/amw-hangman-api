@@ -6,10 +6,16 @@ Hangman REST API using Nest.js
 
 Deployed here: https://amw-hangman-api.herokuapp.com/
 
-## References
+## References - Heroku
 
 * https://www.joshmorony.com/deploying-a-production-nestjs-server-on-heroku/
 * https://www.freecodecamp.org/news/how-to-deploy-a-nodejs-app-to-heroku-from-github-without-installing-heroku-on-your-machine-433bec770efe/
+
+
+## References Database
+
+* https://typeorm.io/#/
+* https://hashinteractive.com/blog/docker-compose-up-with-postgres-quick-tips/
 
 
 

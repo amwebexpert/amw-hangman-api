@@ -10,8 +10,8 @@ export class CategoriesController {
 
     // const url = `${categoriesUrl}/${selectedCategoryUuid}/texts`;
     @Get()
-    public listCategories(): ApiCategory[] {
-        return this.categoriesServcie.listCategories();
+    async listCategories(): Promise<ApiCategory[]> {
+        return this.categoriesServcie.findAll();
     }
 
 }

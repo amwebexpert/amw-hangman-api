@@ -8,7 +8,7 @@ export interface User {
 export interface ApiCategory {
     id: number;
     uuid: string;
-    langCode: string;
+    langcode: string;
     name: string;
 }
 
