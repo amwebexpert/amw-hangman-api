@@ -21,6 +21,7 @@ import { Category } from './categories/category.entity';
       migrationsTableName: 'migration_table',
       migrations: ['dist/migration/*.js'],
       migrationsRun: true,
+      ssl: true,
       cli: {
         migrationsDir: 'migration'
       }
