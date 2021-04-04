@@ -6,6 +6,7 @@ import { AppService } from './app.service';
 import { AboutModule } from './about/about.module';
 import { CategoriesModule } from './categories/categories.module';
 import { Category } from './categories/category.entity';
+import { envUtils } from './utils/environment-utils';
 
 @Module({
   imports: [
@@ -21,11 +22,9 @@ import { Category } from './categories/category.entity';
       migrationsTableName: 'migration_table',
       migrations: ['dist/migration/*.js'],
       migrationsRun: true,
-      ssl: true,
+      ssl: envUtils.isProd(),
       extra: {
-        ssl: {
-          rejectUnauthorized: false,
-        },
+        ssl: envUtils.isProd() ? { rejectUnauthorized: false } : null,
       },
       cli: {
         migrationsDir: 'migration'
