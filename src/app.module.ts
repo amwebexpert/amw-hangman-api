@@ -23,7 +23,9 @@ import { Category } from './categories/category.entity';
       migrationsRun: true,
       ssl: true,
       extra: {
-        rejectUnauthorized: false,
+        ssl: {
+          rejectUnauthorized: false,
+        },
       },
       cli: {
         migrationsDir: 'migration'
