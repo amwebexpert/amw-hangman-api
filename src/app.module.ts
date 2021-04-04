@@ -22,6 +22,9 @@ import { Category } from './categories/category.entity';
       migrations: ['dist/migration/*.js'],
       migrationsRun: true,
       ssl: true,
+      extra: {
+        rejectUnauthorized: false,
+      },
       cli: {
         migrationsDir: 'migration'
       }
