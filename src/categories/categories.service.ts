@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { ApiCategory } from './categories-types';
+import { v4 as uuidv4 } from 'uuid';
 import { Category } from './category.entity';
 
 @Injectable()
@@ -20,14 +20,22 @@ export class CategoriesService {
         return this.repository.findOne({ uuid });
     }
 
-    create(category: Category): Promise<Category> {
-        const createdElement = this.repository.create(category);
-        return Promise.resolve(createdElement);
+    async create(category: Partial<Category>): Promise<Category> {
+        category.id = null;
+        category.uuid = uuidv4();
+
+        await this.repository.insert(category);
+        return Promise.resolve(this.findOne(category.uuid));
     }
 
-    async update(category: Category): Promise<Category> {
-        const originalCategory = await this.findOne(category.uuid);
-        const updatedCategory = await this.repository.save({ ...originalCategory, ...category }); // TODO Revisit this approach, not sure it's the best way...
+    async update(uuid: string, category: Partial<Category>): Promise<Category> {
+        const originalCategory = await this.findOne(uuid);
+        const updatedCategory = await this.repository.save({ 
+            id: originalCategory.id,
+            uuid,
+            langcode: category.langcode,
+            name: category.name,
+         });
         return Promise.resolve(updatedCategory);
     }
 
