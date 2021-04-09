@@ -1,27 +1,107 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <title>Hangman</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="utf-8"/>
-<style>
-.container {
-    height: 100vh;
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-</style>
+    <meta charset="utf-8" />
+    <style>
+        .container {
+            height: 100vh;
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="container">
-    <h3>Hangman</h3>
-</div>
+    <div class="container">
+        <h3>Hangman</h3>
 
+        <div>
+            <button id="classicLogin">Login</button> - <button id="classicLogout">Logout</button> - <button
+                id="apiCall">API Call</button>
+        </div>
+
+        <pre id="userInfo"></pre>
+
+        <pre id="apiCallResponse"></pre>
+    </div>
+
+
+    <!-- https://firebase.google.com/docs/web/setup#from-the-cdn -->
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-auth.js"></script>
+
+    <script>
+        let lastAuthenticatedUser = null;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initFirebase();
+            document.getElementById('classicLogin').addEventListener('click', classicLogin);
+            document.getElementById('classicLogout').addEventListener('click', classicLogout);
+            document.getElementById('apiCall').addEventListener('click', callApi);
+        });
+
+        function initFirebase() {
+            // Your web app's Firebase configuration
+            const firebaseConfig = {
+                apiKey: 'AIzaSyB4FUVEG5DzSclgXGJeEo9tmq9MlBeSxQM',
+                authDomain: 'nativefirebase2webview.firebaseapp.com',
+                projectId: 'nativefirebase2webview',
+                storageBucket: 'nativefirebase2webview.appspot.com',
+                messagingSenderId: '467182013316',
+                appId: '1:467182013316:web:edc1802f2f3df452b8ebd1'
+            };
+
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+            firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
+        }
+
+        function classicLogin() {
+            firebase
+                .auth()
+                .signInWithEmailAndPassword('jane.doe@example.com', 'SuperSecretPassword!')
+                .then(({ user }) => {
+                    lastAuthenticatedUser = user;
+                    console.log('lastAuthenticatedUser', lastAuthenticatedUser);
+                    document.getElementById('userInfo').innerHTML = user.email + ' - ' + user.uid;
+                });
+        }
+
+        function classicLogout() {
+            firebase.auth().signOut()
+                .then(() => {
+                    document.getElementById('userInfo').innerHTML = '- - -';
+                    document.getElementById('apiCallResponse').innerHTML = '- - -';
+                    lastAuthenticatedUser = null;
+                });
+        }
+
+        async function callApi() {
+            const headers = {
+                'Content-Type': 'application/json',
+            };
+
+            if (lastAuthenticatedUser) {
+                const token = await lastAuthenticatedUser.getIdToken(true);
+                headers['Authorization'] = `Bearer ${token}`;
+            }
+
+            const response = await fetch('/api/v1/about', { headers });
+            const data = await response.json();
+
+            document.getElementById('apiCallResponse').innerHTML = JSON.stringify(data, null, 2);
+        }
+
+    </script>
 
 </body>
+
 </html>

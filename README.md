@@ -18,6 +18,12 @@ or
     ./startApi.sh
 
 
+## References - Security with Firebase
+
+* https://www.youtube.com/watch?v=kX8by4eCyG4
+* https://medium.com/@sharma.vikashkr/nestjs-firebase-auth-secured-nestjs-resource-server-9649bcebd0de
+* https://console.firebase.google.com/project/nativefirebase2webview/settings/serviceaccounts/adminsdk
+
 ## References - Heroku
 
 * https://www.joshmorony.com/deploying-a-production-nestjs-server-on-heroku/
