@@ -4,13 +4,18 @@ Hangman REST API using Nest.js
 
 Deployed here: https://amw-hangman-api.herokuapp.com/
 
-## Starging the app locally
+## Starting the database locally
 
     docker run --name pg-docker --rm -p 5432:5432 -e POSTGRES_PASSWORD=postgres -e POSTGRES_USER=postgres -e POSTGRES_DB=hangman -d postgres
 or
     docker-compose up -d
 or
     ./startDb.sh
+
+## Starting the REST API server locally
+
+    . ./setEnvDevWorkstation.sh
+    ./startApi.sh
 
 
 ## References - Heroku
