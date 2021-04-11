@@ -1,5 +1,4 @@
 import { Injectable, Logger } from "@nestjs/common";
-import { Request } from 'express';
 import * as firebase from 'firebase-admin';
 import serviceAccount from './firebaseServiceAccount';
 
@@ -40,8 +39,7 @@ export class TokenService {
         return user;
     }
 
-    async createCustomToken(request: Request): Promise<CustomToken> {
-        const user: AuthorizedUser = request['user'];
+    async createCustomToken(user?: AuthorizedUser): Promise<CustomToken> {
         if (!user) {
             return {};
         }

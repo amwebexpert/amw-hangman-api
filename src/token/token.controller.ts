@@ -1,20 +1,16 @@
-import { Controller, Inject, Post } from '@nestjs/common';
-import { REQUEST } from '@nestjs/core';
+import { Controller, Post } from '@nestjs/common';
 import { Request } from 'express';
-import { CustomToken, TokenService } from './token.service';
+import { AuthorizedUser, CustomToken, TokenService } from './token.service';
 
 @Controller('/api/v1/token')
 export class TokenController {
 
-  constructor(
-    @Inject(REQUEST) private readonly request: Request,
-    private readonly tokenService: TokenService,
-  ) {
-  }
+  constructor(private readonly tokenService: TokenService) {}
 
   @Post('/createCustomToken')
-  async createCustomToken(): Promise<CustomToken> {
-    return this.tokenService.createCustomToken(this.request);
+  async createCustomToken(request: Request): Promise<CustomToken> {
+    const user: AuthorizedUser = request['user'];
+    return this.tokenService.createCustomToken(user);
   }
 
 }

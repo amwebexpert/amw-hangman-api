@@ -46,6 +46,8 @@
             document.getElementById('classicLogin').addEventListener('click', classicLogin);
             document.getElementById('classicLogout').addEventListener('click', classicLogout);
             document.getElementById('apiCall').addEventListener('click', callApi);
+
+            window.addEventListener('message', handleMessage);
         });
 
         function initFirebase() {
@@ -70,10 +72,21 @@
             firebase
                 .auth()
                 .signInWithEmailAndPassword('jane.doe@example.com', 'SuperSecretPassword!')
-                // .signInWithCustomToken('eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJodHRwczovL2lkZW50aXR5dG9vbGtpdC5nb29nbGVhcGlzLmNvbS9nb29nbGUuaWRlbnRpdHkuaWRlbnRpdHl0b29sa2l0LnYxLklkZW50aXR5VG9vbGtpdCIsImlhdCI6MTYxODAwNTA3NCwiZXhwIjoxNjE4MDA4Njc0LCJpc3MiOiJmaXJlYmFzZS1hZG1pbnNkay10bmVicEBuYXRpdmVmaXJlYmFzZTJ3ZWJ2aWV3LmlhbS5nc2VydmljZWFjY291bnQuY29tIiwic3ViIjoiZmlyZWJhc2UtYWRtaW5zZGstdG5lYnBAbmF0aXZlZmlyZWJhc2Uyd2Vidmlldy5pYW0uZ3NlcnZpY2VhY2NvdW50LmNvbSIsInVpZCI6Ind4NVVjd2lyRmdVRW9USFhwM1N1bWY1bGYxNDIifQ.JBDhqWDBpgpTDHKyTd02uGuET7BHSRnWGLo_DAlKgF5ukplBipMn7d2EE8ZWk3_tVJysxYDdO_FY5jB-QsU7c3z3R9clFWABxaKjWlrMAVlRPJmvenCLAUEzKJAOZSK_TmtZCprbh_YFPyWygXWls3LWli3dxZ2vM0Ty7A1qdl5jPZ01R4-PuIahAWq-FRgbxQKStXrNJf63EQGpv_5lSNHiJaoESAeyREyyV-rWUWEn7uGgkr3oVq5A1z_pvOTH1n9XZqpzuExkOuus0GWL3Yg7PZtt8agsRjzC2coeWS_sBSpMXftNJi-_4JzdYuElw5KncVcNGjEetc_Ll8Uj1w')
                 .then(({ user }) => {
                     lastAuthenticatedUser = user;
                     console.log('lastAuthenticatedUser', lastAuthenticatedUser);
+                    document.getElementById('userInfo').innerHTML = user.email + ' - ' + user.uid;
+                });
+        }
+
+        function customTokenLogin(customToken) {
+            alert('calling signInWithCustomToken');
+
+            firebase
+                .auth()
+                .signInWithCustomToken(customToken)
+                .then(({ user }) => {
+                    lastAuthenticatedUser = user;
                     document.getElementById('userInfo').innerHTML = user.email + ' - ' + user.uid;
                 });
         }
@@ -103,6 +116,35 @@
             document.getElementById('apiCallResponse').innerHTML = JSON.stringify(data, null, 2);
         }
 
+        // ********************************************************************************************************
+        // Communication bridge between SPA (webapp) & Webview (native)
+        // ********************************************************************************************************
+        export const postMessageToWebView = async (type, data) => {
+            if (window && window.ReactNativeWebView) {
+                window.ReactNativeWebView.postMessage(JSON.stringify({ type, data }));
+                return true;
+            }
+
+            console.log(`ReactNativeWebView not available for sending [${type}] message`);
+            return false;
+        };
+
+        async function handleMessage(event) {
+            const { type, data } = event.data;
+
+            if (type) {
+                alert(`SPA received a message: \n${type}`);
+            }
+
+            switch (type) {
+                case 'customToken':
+                    customTokenLogin(data);
+                    break;
+
+                default:
+                    break;
+            }
+        }
     </script>
 
 </body>
