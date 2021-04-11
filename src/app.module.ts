@@ -4,8 +4,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { AboutModule } from './about/about.module';
 import { databaseConfigs } from './app.configurations';
-import { PreauthMiddleware } from './auth/preauth.moddleware';
 import { CategoriesModule } from './categories/categories.module';
+import { TokenController } from './token/token.controller';
+import { TokenMiddleware } from './token/token.moddleware';
+import { TokenService } from './token/token.service';
 
 
 @Module({
@@ -13,15 +15,15 @@ import { CategoriesModule } from './categories/categories.module';
     ServeStaticModule.forRoot({ rootPath: join(__dirname, '..', 'public') }),
     TypeOrmModule.forRoot(databaseConfigs),
     AboutModule,
-    CategoriesModule
+    CategoriesModule,
   ],
-  controllers: [],
-  providers: [],
+  controllers: [TokenController],
+  providers: [TokenService],
 })
 export class AppModule implements NestModule {
 
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(PreauthMiddleware).forRoutes({
+    consumer.apply(TokenMiddleware).forRoutes({
       path: '*', method: RequestMethod.ALL
     });
   }
