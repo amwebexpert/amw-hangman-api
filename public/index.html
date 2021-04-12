@@ -7,13 +7,8 @@
     <meta charset="utf-8" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <style>
-        .container {
-            height: 100vh;
-            display: flex;
-            flex: 1;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+        .actions {
+            text-align: center;
         }
 
         .actions>* {
@@ -34,8 +29,8 @@
         #logs {
             border: 1px solid lightgray;
             width: 100%;
-            max-height: 100px;
-            height: 100px;
+            max-height: 140px;
+            height: 140px;
             resize: none;
             overflow: scroll;
             white-space: nowrap;
@@ -48,8 +43,8 @@
 
 <body>
 
-    <div class="container">
-        <h4>Single Page App</h4>
+    <div class="container-fluid">
+        <h4 class="text-center">Single Page App</h4>
 
         <div class="actions">
             <button class="btn btn-secondary" id="classicLogin">Login</button>
