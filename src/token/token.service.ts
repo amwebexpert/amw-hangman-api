@@ -41,6 +41,7 @@ export class TokenService {
 
     async createCustomToken(user?: AuthorizedUser): Promise<CustomToken> {
         if (!user) {
+            // throw new UnauthorizedException();
             return {};
         }
 
