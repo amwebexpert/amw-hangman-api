@@ -5,6 +5,7 @@
     <title>Hangman</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <style>
         .container {
             height: 100vh;
@@ -14,22 +15,50 @@
             justify-content: center;
             align-items: center;
         }
+
+        .actions>* {
+            margin: 6px;
+        }
+
+        #apiCallResponse {
+            border: 1px solid lightgray;
+            width: 100%;
+            height: 120px;
+            max-height: 120px;
+            overflow: scroll;
+            padding: 4px;
+            font-family: monospace;
+            font-size: 9pt;
+        }
+
+        #logs {
+            border: 1px solid lightgray;
+            width: 100%;
+            max-height: 100px;
+            height: 100px;
+            resize: none;
+            overflow: scroll;
+            white-space: nowrap;
+            padding: 4px;
+            font-family: monospace;
+            font-size: 9pt;
+        }
     </style>
 </head>
 
 <body>
 
     <div class="container">
-        <h3>Hangman</h3>
+        <h4>Single Page App</h4>
 
-        <div>
-            <button id="classicLogin">Login</button> - <button id="classicLogout">Logout</button> - <button
-                id="apiCall">API Call</button>
+        <div class="actions">
+            <button class="btn btn-secondary" id="classicLogin">Login</button>
+            <button class="btn btn-secondary" id="classicLogout">Logout</button>
+            <button class="btn btn-warning" id="apiCall">API Call</button>
         </div>
 
-        <pre id="userInfo"></pre>
-
         <pre id="apiCallResponse"></pre>
+        <textarea id="logs"></textarea>
     </div>
 
 
@@ -64,40 +93,29 @@
             // Initialize Firebase
             firebase.initializeApp(firebaseConfig);
             firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
+            log(`Firebase initialized`);
         }
 
         function classicLogin() {
-            // console.log('calling signInWithCustomToken');
+            log(`Calling firebase.auth().signInWithEmailAndPassword...`);
 
             firebase
                 .auth()
                 .signInWithEmailAndPassword('jane.doe@example.com', 'SuperSecretPassword!')
                 .then(({ user }) => {
                     lastAuthenticatedUser = user;
-                    alert(`refreshToken: ${user.refreshToken}`);
-                    console.log('lastAuthenticatedUser', lastAuthenticatedUser);
-                    document.getElementById('userInfo').innerHTML = user.email + ' - ' + user.uid;
-                });
-        }
-
-        async function customTokenLogin(customToken) {
-            alert('calling signInWithCustomToken');
-
-            firebase
-                .auth()
-                .signInWithCustomToken(customToken)
-                .then(({ user }) => {
-                    lastAuthenticatedUser = user;
-                    alert(`refreshToken: ${user.refreshToken}`);
-                    document.getElementById('userInfo').innerHTML = user.email + ' - ' + user.uid;
+                    log(`refreshToken: ${user.refreshToken}`);
+                    log(`lastAuthenticatedUser: ${JSON.stringify(lastAuthenticatedUser)}`);
+                    log(user.email + ' - ' + user.uid);
                 });
         }
 
         function classicLogout() {
+            log(`Calling firebase.auth().signOut...`);
+            const SPACE = '\xA0';
             firebase.auth().signOut()
                 .then(() => {
-                    document.getElementById('userInfo').innerHTML = '- - -';
-                    document.getElementById('apiCallResponse').innerHTML = '- - -';
+                    document.getElementById('apiCallResponse').innerHTML = SPACE;
                     lastAuthenticatedUser = null;
                 });
         }
@@ -112,10 +130,29 @@
                 headers['Authorization'] = `Bearer ${token}`;
             }
 
+            const url = '/api/v1/about';
+            log(`Calling ${url}`);
             const response = await fetch('/api/v1/about', { headers });
+            log(`Calling ${url} statusCode: ${response.status} - ${response.statusText}`);
             const data = await response.json();
 
             document.getElementById('apiCallResponse').innerHTML = JSON.stringify(data, null, 2);
+        }
+
+        function log(info) {
+            const logs = document.getElementById('logs');
+            const lines = logs.value;
+            const newLine = new Date().toLocaleTimeString() + ' - ' + info;
+            logs.value = newLine + '\n' + lines;
+        }
+
+        async function customTokenLogin(customToken) {
+            log('calling signInWithCustomToken');
+            const { user } = firebase.auth().signInWithCustomToken(customToken)
+
+            lastAuthenticatedUser = user;
+            log(`refreshToken: ${user.refreshToken}`);
+            log(user.email + ' - ' + user.uid);
         }
 
         // ********************************************************************************************************
@@ -127,7 +164,7 @@
                 return true;
             }
 
-            console.log(`ReactNativeWebView not available for sending [${type}] message`);
+            log(`ReactNativeWebView not available for sending [${type}] message`);
             return false;
         };
 
@@ -135,7 +172,7 @@
             const { type, data } = event.data;
 
             if (type) {
-                alert(`SPA received a message: \n${type}`);
+                log(`SPA received a message: \n${type}`);
             }
 
             switch (type) {
