@@ -99,6 +99,7 @@
 
         function classicLogin() {
             log(`Calling firebase.auth().signInWithEmailAndPassword...`);
+            document.getElementById('apiCallResponse').innerHTML = '';
 
             firebase
                 .auth()
@@ -162,29 +163,25 @@
             log(`refreshToken: ${user.refreshToken}`);
             log(user.email + ' - ' + user.uid);
 
-            log('Calling API with that new token...');
-            callApi();
+            document.getElementById('apiCallResponse').innerHTML = '';
         }
 
         // ********************************************************************************************************
         // Communication bridge between SPA (webapp) & Webview (native)
         // ********************************************************************************************************
         async function postMessageToWebView(type, data) {
-            if (window && window.ReactNativeWebView) {
+            if (!window.ReactNativeWebView) {
+                log(`ReactNativeWebView not available for sending [${type}] message`);
+                return false;
+            } else {
                 window.ReactNativeWebView.postMessage(JSON.stringify({ type, data }));
                 return true;
             }
-
-            log(`ReactNativeWebView not available for sending [${type}] message`);
-            return false;
         };
 
         async function handleMessage(event) {
             const { type, data } = event.data;
-
-            if (type) {
-                log(`SPA received a message: \n${type}`);
-            }
+            log(`handleMessage called with: [${type}]`);
 
             switch (type) {
                 case 'customToken':
