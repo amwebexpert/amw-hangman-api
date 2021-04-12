@@ -161,6 +161,9 @@
             lastAuthenticatedUser = user;
             log(`refreshToken: ${user.refreshToken}`);
             log(user.email + ' - ' + user.uid);
+
+            log('Calling API with that new token...');
+            callApi();
         }
 
         // ********************************************************************************************************
