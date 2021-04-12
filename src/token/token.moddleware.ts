@@ -9,22 +9,24 @@ export class TokenMiddleware implements NestMiddleware {
     constructor(private readonly tokenService: TokenService) {
     }
 
-    use(req: Request, res: Response, next: Function) {
-        const token = req.headers.authorization;
+    use(request: Request, response: Response, next: Function) {
+        const token = request.headers.authorization;
 
-        if (!token || token.trim().length === 0 || token.indexOf('Bearer ') !== 0) {
+        if (!token || token.indexOf(' ') === -1) {
             next();
             return; // No bearer token, nothing to verify
         }
 
-        const tokenToVerify = token.replace('Bearer ', '');
+        // "Bearer xyz" ===> "xyz"
+        const tokenToVerify = token.split(' ')[1];
 
+        this.logger.log(`Token verification of incoming request ${request.socket.remoteAddress}`);
         this.tokenService.verifyIdToken(tokenToVerify)
             .then(user => {
-                req['user'] = user;
+                request['user'] = user;
                 next();
             })
-            .catch(error => this.accessDenied(req.url, res, error));
+            .catch(error => this.accessDenied(request.url, response, error));
     }
 
     private accessDenied(requestUrl: string, response: Response, error: any) {
