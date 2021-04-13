@@ -77,6 +77,7 @@
             document.getElementById('apiCall').addEventListener('click', callApi);
             document.getElementById('clearLogs').addEventListener('click', clearLogs);
 
+            document.addEventListener('message', handleMessage);
             window.addEventListener('message', handleMessage);
         });
 
