@@ -157,7 +157,7 @@
         }
 
         async function customTokenLogin(customToken) {
-            log(`calling signInWithCustomToken with ${customToken.slice(0, 5)}...}`);
+            log(`calling signInWithCustomToken with ${customToken.slice(0, 5)}...`);
             const { user } = await firebase.auth().signInWithCustomToken(customToken);
 
             lastAuthenticatedUser = user;
