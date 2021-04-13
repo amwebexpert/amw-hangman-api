@@ -186,10 +186,9 @@
                 return;
             }
             
-            log(`Received ${event.data}`);
-
             let payload = event.data;
             if (typeof payload === 'string' || payload instanceof String) {
+                log('event.data is of type string');
                 payload = JSON.parse(payload);
             }
 
