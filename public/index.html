@@ -77,6 +77,7 @@
             document.getElementById('apiCall').addEventListener('click', callApi);
             document.getElementById('clearLogs').addEventListener('click', clearLogs);
 
+            // https://stackoverflow.com/questions/41160221/react-native-webview-postmessage-does-not-work
             document.addEventListener('message', handleMessage);
             window.addEventListener('message', handleMessage);
         });
@@ -160,7 +161,7 @@
             const { user } = await firebase.auth().signInWithCustomToken(customToken);
 
             lastAuthenticatedUser = user;
-            log(`refreshToken: ${user.refreshToken.slice(0, 5)}...}`);
+            log(`refreshToken: ${user.refreshToken.slice(0, 5)}...`);
             log(user.email + ' - ' + user.uid);
 
             document.getElementById('apiCallResponse').innerHTML = '';
