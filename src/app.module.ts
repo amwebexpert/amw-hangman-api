@@ -6,7 +6,7 @@ import { AboutModule } from './about/about.module';
 import { databaseConfigs } from './app.configurations';
 import { CategoriesModule } from './categories/categories.module';
 import { TokenController } from './token/token.controller';
-import { TokenMiddleware } from './token/token.moddleware';
+import { TokenMiddleware } from './token/token.middleware';
 import { TokenService } from './token/token.service';
 
 

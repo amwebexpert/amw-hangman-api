@@ -180,6 +180,11 @@
         };
 
         async function handleMessage(event) {
+            if (event.origin !== window.location.origin) {
+                log(`Unexpected message comming from different origin. Event from [${event.origin}] while expecting from [${window.location.origin}]`);
+                return;
+            }
+
             const { type, data } = event.data;
             log(`handleMessage called with: [${type}]`);
 
