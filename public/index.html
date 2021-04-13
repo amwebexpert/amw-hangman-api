@@ -107,8 +107,7 @@
                 .signInWithEmailAndPassword('jane.doe@example.com', 'SuperSecretPassword!')
                 .then(({ user }) => {
                     lastAuthenticatedUser = user;
-                    log(`refreshToken: ${user.refreshToken}`);
-                    log(`lastAuthenticatedUser: ${JSON.stringify(lastAuthenticatedUser)}`);
+                    log(`refreshToken: ${user.refreshToken.slice(0, 5)}...`);
                     log(user.email + ' - ' + user.uid);
                 });
         }
@@ -136,7 +135,7 @@
 
             const url = '/api/v1/about';
             log(`Calling ${url}`);
-            const response = await fetch('/api/v1/about', { headers });
+            const response = await fetch(url, { headers });
             log(`Calling ${url} statusCode: ${response.status} - ${response.statusText}`);
             const data = await response.json();
 
@@ -157,11 +156,11 @@
         }
 
         async function customTokenLogin(customToken) {
-            log(`calling signInWithCustomToken with ${customToken}`);
+            log(`calling signInWithCustomToken with ${customToken.slice(0, 5)}...}`);
             const { user } = await firebase.auth().signInWithCustomToken(customToken);
 
             lastAuthenticatedUser = user;
-            log(`refreshToken: ${user.refreshToken}`);
+            log(`refreshToken: ${user.refreshToken.slice(0, 5)}...}`);
             log(user.email + ' - ' + user.uid);
 
             document.getElementById('apiCallResponse').innerHTML = '';
