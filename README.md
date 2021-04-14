@@ -7,9 +7,13 @@ Deployed here: https://amw-hangman-api.herokuapp.com/
 ## Starting the database locally
 
     docker run --name pg-docker --rm -p 5432:5432 -e POSTGRES_PASSWORD=postgres -e POSTGRES_USER=postgres -e POSTGRES_DB=hangman -d postgres
+
 or
+
     docker-compose up -d
-or
+
+or simply
+
     ./startDb.sh
 
 ## Starting the REST API server locally
@@ -17,6 +21,18 @@ or
     . ./setEnvDevWorkstation.sh
     ./startApi.sh
 
+## Local links
+
+* http://localhost:3000 for the welcome page
+* http://localhost:3000/api/ for the API documentation
+
+
+## TODOs
+
+* add Users and link each category with a user uuid
+* whenever a category or associated text entry is created, modified or deleted, ensure the modifier is the category owner
+* create TextDto for POST and PUT input validations
+* create POST and PUT using TextDto for validations
 
 ## References - Security with Firebase
 

@@ -8,6 +8,7 @@ import { CategoriesModule } from './categories/categories.module';
 import { TokenController } from './token/token.controller';
 import { TokenMiddleware } from './token/token.middleware';
 import { TokenService } from './token/token.service';
+import { TextsModule } from './texts/texts.module';
 
 
 @Module({
@@ -16,6 +17,7 @@ import { TokenService } from './token/token.service';
     TypeOrmModule.forRoot(databaseConfigs),
     AboutModule,
     CategoriesModule,
+    TextsModule,
   ],
   controllers: [TokenController],
   providers: [TokenService],

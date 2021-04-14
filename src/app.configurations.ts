@@ -1,5 +1,6 @@
 import { TypeOrmModuleOptions } from "@nestjs/typeorm";
 import { Category } from "./categories/category.entity";
+import { Text } from "./texts/text.entity";
 import { envUtils } from "./utils/environment-utils";
 
 export const databaseConfigs: TypeOrmModuleOptions = {
@@ -9,7 +10,7 @@ export const databaseConfigs: TypeOrmModuleOptions = {
     username: process.env.POSTGRES_USER || 'postgres',
     password: process.env.POSTGRES_PASSWORD || 'postgres',
     database: process.env.POSTGRES_DB || 'hangman',
-    entities: [Category],
+    entities: [Category, Text],
     synchronize: false,
     migrationsTableName: 'migration_table',
     migrations: ['dist/migration/*.js'],
