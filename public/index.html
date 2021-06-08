@@ -66,6 +66,8 @@
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-auth.js"></script>
+    <script src="http://faisalman.github.io/ua-parser-js/js/ua-parser.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs@2/dist/fingerprint2.min.js"></script>
 
     <script>
         let lastAuthenticatedUser = null;
@@ -80,7 +82,39 @@
             // https://stackoverflow.com/questions/41160221/react-native-webview-postmessage-does-not-work
             document.addEventListener('message', handleMessage);
             window.addEventListener('message', handleMessage);
+
+            buildFingerprint();
+            postMessageToWebView('DOMContentLoaded', { completed: true });
         });
+
+        async function buildFingerprint() {
+            postMessageToWebView('spa-log', 'inside buildFingerprint');
+            const fingerprint = await Fingerprint2.getPromise({
+                excludes: {
+                    audio: true,
+                    canvas: true,
+                    fontsFlash: true,
+                    enumerateDevices: true,
+                    webgl: true,
+                },
+                preprocessor(key, value) {
+                    if (key === 'userAgent') {
+                        const parser = new UAParser(value);
+                        const userAgentMinusVersion = parser.getOS().name + ' ' + parser.getBrowser().name;
+                        postMessageToWebView('spa-log', userAgentMinusVersion);
+                        return userAgentMinusVersion;
+                    }
+                    return value;
+                },
+            })
+            .then(components => {
+                const values = components.map(component => component.value).join('');
+                postMessageToWebView('spa-log', values);
+                return Fingerprint2.x64hash128(values, 31);
+            });
+            
+            postMessageToWebView('fingerprint', { value: fingerprint });
+        }
 
         function initFirebase() {
             // Your web app's Firebase configuration
@@ -173,6 +207,7 @@
         async function postMessageToWebView(type, data) {
             if (!window.ReactNativeWebView) {
                 log(`ReactNativeWebView not available for sending [${type}] message`);
+                // console.log(type, data);
                 return false;
             } else {
                 window.ReactNativeWebView.postMessage(JSON.stringify({ type, data }));
