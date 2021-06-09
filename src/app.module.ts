@@ -6,6 +6,7 @@ import { join } from 'path';
 import { AboutModule } from './about/about.module';
 import { databaseConfigs } from './app.configurations';
 import { CategoriesModule } from './categories/categories.module';
+import { SimulatorModule } from './simulator/simulator.module';
 import { TextsModule } from './texts/texts.module';
 import { TokenController } from './token/token.controller';
 import { TokenMiddleware } from './token/token.middleware';
@@ -20,6 +21,7 @@ import { GlobalExceptionFilter } from './utils/global-exception.filter';
     AboutModule,
     CategoriesModule,
     TextsModule,
+    SimulatorModule,
   ],
   controllers: [TokenController],
   providers: [
@@ -27,7 +29,8 @@ import { GlobalExceptionFilter } from './utils/global-exception.filter';
       provide: APP_FILTER,
       useClass: GlobalExceptionFilter,
     },
-    TokenService],
+    TokenService
+  ],
 })
 export class AppModule implements NestModule {
 
