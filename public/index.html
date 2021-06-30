@@ -193,6 +193,11 @@
             logs.value = newLine + '\n' + lines;
         }
 
+        function logObject(data) {
+            const logs = document.getElementById('logs');
+            logs.value = JSON.stringify(data, null, 2) + '\n' + logs.value;
+        }
+
         function clearLogs() {
             document.getElementById('apiCallResponse').innerHTML = '';
             document.getElementById('logs').value = '';
@@ -237,6 +242,7 @@
 
             const { type, data } = payload;
             log(`handleMessage called with: [${type}]`);
+            logObject(payload);
 
             switch (type) {
                 case 'customToken':
