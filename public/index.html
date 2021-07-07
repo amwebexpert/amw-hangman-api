@@ -229,6 +229,7 @@
         };
 
         async function handleMessage(event) {
+            log('Verifying event.origin [${event.origin}] vs [${window.location.origin}]');
             if (event.origin && event.origin !== window.location.origin) {
                 log(`Unexpected message comming from different origin. Event from [${event.origin}] while expecting from [${window.location.origin}]`);
                 return;
