@@ -54,7 +54,8 @@
 <body style="background-color: #431595;">
 
     <div class="container-fluid">
-        <h4 class="title">Single Page App - 2021-07-07-a</h4>
+        <h4 class="title">Single Page App</h4>
+        <p class="text-center">2021-07-07-a</p>
 
         <div class="actions">
             <button class="btn btn-secondary" id="classicLogin">Login</button>
@@ -229,7 +230,7 @@
         };
 
         async function handleMessage(event) {
-            log('Verifying event.origin [${event.origin}] vs [${window.location.origin}]');
+            log(`Verifying event.origin [${event.origin}] vs [${window.location.origin}]`);
             if (event.origin && event.origin !== window.location.origin) {
                 log(`Unexpected message comming from different origin. Event from [${event.origin}] while expecting from [${window.location.origin}]`);
                 return;
