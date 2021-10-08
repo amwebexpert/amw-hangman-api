@@ -257,6 +257,22 @@
         }
     </script>
 
+    <!-- reCAPTCHA v3 demo start -->
+    <script>
+        function onRecaptchaLoadCallback() {
+            log('onRecaptchaLoadCallback called');
+            grecaptcha.ready(function () {
+                log('grecaptcha.ready() called');
+                grecaptcha.execute('6LcGre8UAAAAAKMCSwcWMLu_TdIyJ8oRP_FvR4WQ', { action: 'executeInscriptionStatusValidate' }).then(function (token) {
+                    log(`grecaptcha.execute() called with ${token.slice(0, 5)}...`);
+                    window.ReactNativeWebView.postMessage(token);
+                });
+            });
+        }
+    </script>
+    <script src="https://www.google.com/recaptcha/api.js?render=6LcGre8UAAAAAKMCSwcWMLu_TdIyJ8oRP_FvR4WQ&onload=onRecaptchaLoadCallback"></script>
+    <!-- reCAPTCHA v3 demo end -->
+        
 </body>
 
 </html>
