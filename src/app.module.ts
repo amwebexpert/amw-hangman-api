@@ -23,21 +23,16 @@ import { GlobalExceptionFilter } from './utils/global-exception.filter';
     TextsModule,
     SimulatorModule,
   ],
-  controllers: [TokenController],
   providers: [
     {
       provide: APP_FILTER,
       useClass: GlobalExceptionFilter,
-    },
-    TokenService
+    }
   ],
 })
 export class AppModule implements NestModule {
 
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(TokenMiddleware).forRoutes({
-      path: '*', method: RequestMethod.ALL
-    });
   }
 
 }
