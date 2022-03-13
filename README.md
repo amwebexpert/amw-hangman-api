@@ -4,6 +4,14 @@ Hangman REST API using Nest.js
 
 Deployed here: https://amw-hangman-api.herokuapp.com/
 
+## Adding new categories
+
+Add a new array inside the `generateInserts.js` script and then run it:
+    node ./tools/generateInserts.js
+
+Then copy paste results into `1617550739641-initialData.ts`
+
+
 ## Starting the database locally
 
     docker run --name pg-docker --rm -p 5432:5432 -e POSTGRES_PASSWORD=postgres -e POSTGRES_USER=postgres -e POSTGRES_DB=hangman -d postgres
