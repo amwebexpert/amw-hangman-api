@@ -85,6 +85,6 @@ const transports = [
 transports.forEach((value) => {
   const normalized = value.toUpperCase().normalize("NFD").replace(/\p{Diacritic}/gu, "");
   const uuid = uuidv4();
-  console.log(`('${uuid}', 1, '${value}', '${normalized}'),`);
+  console.log(`('${uuid}', 2, '${value}', '${normalized}'),`);
 });
 

@@ -4,12 +4,6 @@ import { MigrationInterface, QueryRunner } from "typeorm";
 export class initialData1617550739642 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
-            -- Categories
-            INSERT INTO category (uuid, langcode, name)
-            VALUES
-                ('580b0004-d581-49d1-9c84-bddffdb5f3fd', 'fr', 'animaux'),
-                ('64d28a1e-24cf-40f7-a6f1-3a76fd534639', 'fr', 'transport');
-            
             -- Text to guess
             INSERT INTO text (uuid, categoryid, original, normalized)
             VALUES
@@ -67,29 +61,29 @@ export class initialData1617550739642 implements MigrationInterface {
                 ('288ce343-dca8-4c83-b601-a9d7e66511b4', 1, 'Cerf', 'CERF');
             INSERT INTO text (uuid, categoryid, original, normalized)
             VALUES
-                ('2b6e16a9-ab0e-4077-bf12-7e5f6e2359b4', 1, 'Locomotive', 'LOCOMOTIVE'),
-                ('8feb2475-edf4-43f9-a0dd-312927a442ee', 1, 'Pédalo', 'PEDALO'),
-                ('deb8c45c-d49f-4e09-a62a-47c1a7d0ae71', 1, 'Bateau', 'BATEAU'),
-                ('0425fd51-a8f3-48b4-98fb-39e5286949af', 1, 'Ponton', 'PONTON'),
-                ('81d9180f-4aa4-4120-8ea7-d3902063bb8f', 1, 'Motocyclette', 'MOTOCYCLETTE'),
-                ('1d27aff0-8c08-4d62-b011-7b071bd4b51e', 1, 'Camion', 'CAMION'),
-                ('d96f4c17-1b44-4fe8-9131-ee97b37fd3a9', 1, 'Canoë', 'CANOE'),
-                ('39d14131-af25-4e4b-b561-4d9bbd27da6d', 1, 'Kayak', 'KAYAK'),
-                ('ec87987b-6bfb-42b8-86b4-ed8cf18bbd2a', 1, 'Roulotte', 'ROULOTTE'),
-                ('9fbe1ad1-080e-4a72-ade6-e31e313f5964', 1, 'Taxi', 'TAXI'),
-                ('a07637ba-6466-4180-a88f-2bedad04926a', 1, 'Métro', 'METRO'),
-                ('7da78715-2747-4365-8a6e-8635b52630c9', 1, 'Ambulance', 'AMBULANCE'),
-                ('f0286481-e7d0-48e9-bfae-2a50698517af', 1, 'Hélicoptère', 'HELICOPTERE'),
-                ('1c7fe30b-9ea3-498b-af0f-9d52ca97df24', 1, 'Tracteur', 'TRACTEUR'),
-                ('f02c07f5-33c2-4ee0-99f0-7ac2e8069070', 1, 'Limousine', 'LIMOUSINE'),
-                ('294f74b1-0f2c-4478-81b1-63ea45ee6b80', 1, 'Voilier', 'VOILIER'),
-                ('eb28c483-16cf-42cd-a9bb-66ec93aeb39a', 1, 'Paquebot', 'PAQUEBOT'),
-                ('0cad9414-073e-4d6c-9e6a-ad179bb0964c', 1, 'Motocross', 'MOTOCROSS'),
-                ('c459be0d-4000-4edc-bf90-8d0dcb50dd8a', 1, 'Motocyclistette', 'MOTOCYCLISTETTE'),
-                ('0919b2aa-2e1f-484d-962e-ef5627fd8934', 1, 'Charrue', 'CHARRUE'),
-                ('0fb98dc6-e109-4981-9378-5a1b803bea10', 1, 'Fusée', 'FUSEE'),
-                ('c2c758f0-08d3-4080-a2e0-dd1200d10a2c', 1, 'Aéronef', 'AERONEF'),
-                ('8b12a5c5-7c47-41ba-bc7b-4459032e6191', 1, 'Trotinette', 'TROTINETTE');
+            ('2e375cd0-c7bc-40bf-83b5-49758a1e3178', 2, 'Locomotive', 'LOCOMOTIVE'),
+            ('2ba52d1d-c9ac-4af3-acc3-18de715f71a0', 2, 'Pédalo', 'PEDALO'),
+            ('2bdb1e3d-07be-4277-8cca-4dc8a210e08e', 2, 'Bateau', 'BATEAU'),
+            ('51552d19-31ae-460b-9c02-625751ab3cc9', 2, 'Ponton', 'PONTON'),
+            ('6a363378-d11c-4466-9f98-1bd9d695a077', 2, 'Motocyclette', 'MOTOCYCLETTE'),
+            ('79a5b07f-357f-4591-b29f-b76c7493eb69', 2, 'Camion', 'CAMION'),
+            ('5fa0b41c-169c-479c-b58a-a320b8f9d74b', 2, 'Canoë', 'CANOE'),
+            ('7bd98dfb-80f9-471f-8e5a-dd01fc0c9a7f', 2, 'Kayak', 'KAYAK'),
+            ('1615c375-9cbf-4275-820b-52d301142aec', 2, 'Roulotte', 'ROULOTTE'),
+            ('7191bd9f-f938-4f52-8412-bb17b937e3f3', 2, 'Taxi', 'TAXI'),
+            ('f662252e-29e3-41d1-9a95-fb80eb35c656', 2, 'Métro', 'METRO'),
+            ('b706a1ee-aee8-4507-85ae-498deb7e1e75', 2, 'Ambulance', 'AMBULANCE'),
+            ('5cc02af4-c313-4dc3-b919-2664c4bb0ca2', 2, 'Hélicoptère', 'HELICOPTERE'),
+            ('7766115c-85e3-4534-a7b4-db6419eaa901', 2, 'Tracteur', 'TRACTEUR'),
+            ('c9ff928e-3d87-448b-872e-1fa3be7a4f10', 2, 'Limousine', 'LIMOUSINE'),
+            ('cc190d20-47a2-4351-aaf6-5b805318fdad', 2, 'Voilier', 'VOILIER'),
+            ('9b4481cf-3779-4334-beed-2ab7ba4a5190', 2, 'Paquebot', 'PAQUEBOT'),
+            ('e3a0a944-753f-40c7-8885-9a0529f49700', 2, 'Motocross', 'MOTOCROSS'),
+            ('792c7b3d-13c3-4a0c-a03d-527c5bcbba3a', 2, 'Motocyclistette', 'MOTOCYCLISTETTE'),
+            ('4f48a223-cd93-4b89-9b80-a48518e290a0', 2, 'Charrue', 'CHARRUE'),
+            ('feafc598-c9a5-4a73-a6f6-b74e30e91136', 2, 'Fusée', 'FUSEE'),
+            ('535e898f-5656-4124-a65b-b25d2beb6d81', 2, 'Aéronef', 'AERONEF'),
+            ('32aa87ae-9848-4858-9c71-5e98f162d1be', 2, 'Trotinette', 'TROTINETTE');
         `);
   }
 
