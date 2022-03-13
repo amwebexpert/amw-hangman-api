@@ -1,7 +1,7 @@
 
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class initialData1617550739641 implements MigrationInterface {
+export class initialData1617550739642 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
             -- Categories
