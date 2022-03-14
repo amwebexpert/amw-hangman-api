@@ -25,7 +25,7 @@ export class initialData1617550739643 implements MigrationInterface {
               ('cc190d20-47a2-4351-aaf6-5b805318fdad', 2, 'Voilier', 'VOILIER'),
               ('9b4481cf-3779-4334-beed-2ab7ba4a5190', 2, 'Paquebot', 'PAQUEBOT'),
               ('e3a0a944-753f-40c7-8885-9a0529f49700', 2, 'Motocross', 'MOTOCROSS'),
-              ('792c7b3d-13c3-4a0c-a03d-527c5bcbba3a', 2, 'Motocyclistette', 'MOTOCYCLISTETTE'),
+              ('792c7b3d-13c3-4a0c-a03d-527c5bcbba3a', 2, 'Monocycle', 'MONOCYCLE'),
               ('4f48a223-cd93-4b89-9b80-a48518e290a0', 2, 'Charrue', 'CHARRUE'),
               ('feafc598-c9a5-4a73-a6f6-b74e30e91136', 2, 'Fusée', 'FUSEE'),
               ('535e898f-5656-4124-a65b-b25d2beb6d81', 2, 'Aéronef', 'AERONEF'),
