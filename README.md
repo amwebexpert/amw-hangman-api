@@ -102,15 +102,17 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-## Support
+## Deploy Heroku repo master branch
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+* npm install -g heroku
+* heroku --version
+* heroku login
+  - see also https://dashboard.heroku.com/apps/amw-hangman-api/deploy/heroku-git
+  - see also https://stackoverflow.com/a/70632778/704681
+* ensure to stage new features into heroku repo here: /flutter-projects/heroku-repo/amw-hangman-api
+* git commit -m"feat: my new features"
+* git push heroku master
 
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
 
 ## License
 
