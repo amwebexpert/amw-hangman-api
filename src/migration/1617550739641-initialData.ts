@@ -7,7 +7,8 @@ export class initialData1617550739641 implements MigrationInterface {
             INSERT INTO category (uuid, langcode, name)
             VALUES
                 ('580b0004-d581-49d1-9c84-bddffdb5f3fd', 'fr', 'animaux'),
-                ('64d28a1e-24cf-40f7-a6f1-3a76fd534639', 'fr', 'transport');
+                ('64d28a1e-24cf-40f7-a6f1-3a76fd534639', 'fr', 'transport'),
+                ('f11c8483-41b9-4dfb-85b5-c54ad3ecd962', 'fr', 'couleurs');
             
             -- Text to guess
             INSERT INTO text (uuid, categoryid, original, normalized)

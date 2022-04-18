@@ -4,14 +4,6 @@ Hangman REST API using Nest.js
 
 Deployed here: https://amw-hangman-api.herokuapp.com/
 
-## Adding new categories
-
-Add a new array inside the `generateInserts.js` script and then run it:
-    node ./tools/generateInserts.js
-
-Then copy paste results into `1617550739641-initialData.ts`
-
-
 ## Starting the database locally
 
     docker run --name pg-docker --rm -p 5432:5432 -e POSTGRES_PASSWORD=postgres -e POSTGRES_USER=postgres -e POSTGRES_DB=hangman -d postgres
@@ -54,12 +46,24 @@ or simply
 * https://www.freecodecamp.org/news/how-to-deploy-a-nodejs-app-to-heroku-from-github-without-installing-heroku-on-your-machine-433bec770efe/
 
 
-## References Database
+## References - Database
 
 * https://typeorm.io/#/
 * https://hashinteractive.com/blog/docker-compose-up-with-postgres-quick-tips/
 
+### Adding new categories (initialData)
 
+- [Installing CLI](https://typeorm.io/using-cli#installing-cli)
+  npm i -g typeorm
+  npm install ts-node --save-dev
+- [Creating a new migration](https://typeorm.io/migrations#creating-a-new-migration)
+
+Since we just add new collections (so far) all the DB table can be droped and re-created:
+
+  * typeorm migration:create src/migration/initialData
+  * then add the new array into `generateInserts.js` script and prepare the loop
+  * then execute it:  `node ./tools/generateInserts.js`
+  * then copy paste results into the new file for instance `11111111111-initialData.ts`
 
 
 ## Nest.js Overview
