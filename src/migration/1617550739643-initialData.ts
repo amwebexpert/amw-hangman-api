@@ -4,9 +4,15 @@ import { MigrationInterface, QueryRunner } from "typeorm";
 export class initialData1617550739643 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
-            -- Text to guess
+            -- Text to guess - french transports
             INSERT INTO text (uuid, categoryid, original, normalized)
             VALUES
+              ('5b7c5eec-4e0d-49ec-9100-c052b0403d96', 2, 'Train', 'TRAIN'),
+              ('503dbae8-6f0d-4a4c-8a1e-5c38d6d058d1', 2, 'Automobile', 'AUTOMOBILE'),
+              ('a69ffd59-0887-4ee9-b527-e99f581718ba', 2, 'Bicyclette', 'BICYCLETTE'),
+              ('981c5753-6ab2-40d9-b2b8-1a72ddbf57b6', 2, 'Avion', 'AVION'),
+              ('361f0234-b418-453f-a3aa-7dfe153536f6', 2, 'Moto', 'MOTO'),
+              ('b9f95d04-36f2-4e64-8405-6bc763487dd2', 2, 'Tricycle', 'TRICYCLE'),
               ('2e375cd0-c7bc-40bf-83b5-49758a1e3178', 2, 'Locomotive', 'LOCOMOTIVE'),
               ('2ba52d1d-c9ac-4af3-acc3-18de715f71a0', 2, 'Pédalo', 'PEDALO'),
               ('2bdb1e3d-07be-4277-8cca-4dc8a210e08e', 2, 'Bateau', 'BATEAU'),

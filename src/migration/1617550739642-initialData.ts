@@ -4,9 +4,14 @@ import { MigrationInterface, QueryRunner } from "typeorm";
 export class initialData1617550739642 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
-            -- Text to guess
+            -- Text to guess - french animals
             INSERT INTO text (uuid, categoryid, original, normalized)
             VALUES
+                ('92186b0b-f4c7-4e45-a321-1f34d9648f2f', 1, 'Chien', 'CHIEN'),
+                ('c64c946b-549c-45b6-a4b8-edbca43fa7bd', 1, 'Chat', 'CHAT'),
+                ('ed61c18a-d0e4-4dc7-afa6-c5f8bcf7238c', 1, 'Poisson', 'POISSON'),
+                ('0eaa98db-5b07-48e4-81e7-57d2685ef547', 1, 'Reptile', 'REPTILE'),
+                ('ff7c8cc1-b016-4fd8-8eae-6a081497aaaa', 1, 'Cheval', 'CHEVAL'),
                 ('ede69556-eb54-481c-8e48-349e82295198', 1, 'Oiseau', 'OISEAU'),
                 ('bda5f20b-f0ac-4b03-a36a-bcd7136beb46', 1, 'Aigle', 'AIGLE'),
                 ('712685c8-0412-4b25-96c6-bdda5c8989a6', 1, 'Vipère', 'VIPERE'),

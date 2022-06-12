@@ -29,6 +29,11 @@ export class initialSchema1617548950925 implements MigrationInterface {
                         type: 'varchar',
                         isNullable: false,
                     },
+                    {
+                        name: 'iconName',
+                        type: 'varchar',
+                        isNullable: false,
+                    },
                 ],
             }),
             false,

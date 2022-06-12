@@ -35,6 +35,7 @@ export class CategoriesService {
             uuid,
             langcode: category.langcode,
             name: category.name,
+            iconName: category.iconName,
          });
         return Promise.resolve(updatedCategory);
     }

@@ -9,4 +9,8 @@ export class CategoryDto {
     @IsNotEmpty()
     @IsString()
     name: string;
+
+    @IsNotEmpty()
+    @IsString()
+    iconName: string;
 }

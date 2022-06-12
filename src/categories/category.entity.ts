@@ -13,4 +13,7 @@ export class Category {
 
     @Column()
     name: string;
+
+    @Column()
+    iconName: string;
 }

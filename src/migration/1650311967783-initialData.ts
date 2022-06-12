@@ -3,7 +3,7 @@ import { MigrationInterface, QueryRunner } from "typeorm";
 export class initialData1650311967783 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
-        -- Text to guess
+        -- Text to guess - french colors
         INSERT INTO text (uuid, categoryid, original, normalized)
         VALUES
             ('bb10bf77-844a-417f-af0b-7edd4d4927eb', 3, 'rouge', 'ROUGE'),
