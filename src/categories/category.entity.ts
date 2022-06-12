@@ -15,5 +15,5 @@ export class Category {
     name: string;
 
     @Column()
-    iconName: string;
+    iconname: string;
 }

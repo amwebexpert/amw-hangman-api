@@ -30,7 +30,7 @@ export class initialSchema1617548950925 implements MigrationInterface {
                         isNullable: false,
                     },
                     {
-                        name: 'iconName',
+                        name: 'iconname',
                         type: 'varchar',
                         isNullable: false,
                     },
