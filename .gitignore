@@ -107,3 +107,4 @@ db/
 
 setEnv*.sh
 firebaseServiceAccount.json
+.DS_Store

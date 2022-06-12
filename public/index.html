@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Hangman</title>
+    <title>Guess the text / Devinez le texte</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
@@ -11,267 +11,30 @@
         integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg=="
         crossorigin="anonymous" />
     <style>
-        .actions {
-            text-align: center;
-        }
-
-        .actions>* {
-            margin: 2px;
-        }
-
         .title {
             text-align: center;
-            color: white;
-        }
-
-        #apiCallResponse {
-            border: 1px solid lightgray;
-            color: white;
-            width: 100%;
-            height: 120px;
-            max-height: 120px;
-            overflow: scroll;
-            padding: 4px;
-            font-family: monospace;
-            font-size: 9pt;
-        }
-
-        #logs {
-            border: 1px solid lightgray;
-            width: 100%;
-            max-height: 200px;
-            height: 200px;
-            resize: none;
-            overflow: scroll;
-            white-space: nowrap;
-            padding: 4px;
-            font-family: monospace;
-            font-size: 9pt;
         }
     </style>
 </head>
 
-<body style="background-color: #431595;">
+<body>
 
     <div class="container-fluid">
-        <h4 class="title">Single Page App</h4>
-        <p class="title">2021-07-07-a</p>
+        <h4 class="title">Devinez le texte - Application mobile</h4>
+        <h4 class="title">Politique de confidentialité - Privacy Policy</h4>
 
-        <div class="actions">
-            <button class="btn btn-secondary" id="classicLogin">Login</button>
-            <button class="btn btn-secondary" id="classicLogout">Logout</button>
-            <button class="btn btn-warning" id="apiCall">API Call</button>
-            <button class="btn btn-secondary" id="clearLogs"><span class="fa fa-trash"></span></button>
-        </div>
+        <p>We don't store your personal data, period.</p>
+        <ul>
+            <li>The only available data are the text sentenses to guess in the app</li>
+            <li>The database is thus containing only these public texts</li>
+        </ul>
 
-        <pre id="apiCallResponse"></pre>
-        <textarea id="logs"></textarea>
+        <p>Nous ne conservons aucune donnée personnelle, point à la ligne.</p>
+        <ul>
+            <li>Les seules données sont les différents textes qui doivent être devinés dans l'application</li>
+            <li>La base de données contient par conséquent seulement les textes disponibles publiquement</li>
+        </ul>
     </div>
-
-
-    <!-- https://firebase.google.com/docs/web/setup#from-the-cdn -->
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-auth.js"></script>
-
-    <!-- For fingerprint demo mechanism (see buildFingerprint method below) -->
-    <script src="https://faisalman.github.io/ua-parser-js/js/ua-parser.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs@2/dist/fingerprint2.min.js"></script>
-
-    <script>
-        let lastAuthenticatedUser = null;
-
-        document.addEventListener('DOMContentLoaded', () => {
-            initFirebase();
-            document.getElementById('classicLogin').addEventListener('click', classicLogin);
-            document.getElementById('classicLogout').addEventListener('click', classicLogout);
-            document.getElementById('apiCall').addEventListener('click', callApi);
-            document.getElementById('clearLogs').addEventListener('click', clearLogs);
-
-            // https://stackoverflow.com/questions/41160221/react-native-webview-postmessage-does-not-work
-            document.addEventListener('message', handleMessage);
-            window.addEventListener('message', handleMessage);
-
-            buildFingerprint();
-            postMessageToWebView('DOMContentLoaded', { completed: true });
-        });
-
-        async function buildFingerprint() {
-            postMessageToWebView('spa-log', 'inside buildFingerprint');
-            const fingerprint = await Fingerprint2.getPromise({
-                excludes: {
-                    audio: true,
-                    canvas: true,
-                    fontsFlash: true,
-                    enumerateDevices: true,
-                    webgl: true,
-                },
-                preprocessor(key, value) {
-                    if (key === 'userAgent') {
-                        const parser = new UAParser(value);
-                        const userAgentMinusVersion = parser.getOS().name + ' ' + parser.getBrowser().name;
-                        postMessageToWebView('spa-log', userAgentMinusVersion);
-                        return userAgentMinusVersion;
-                    }
-                    return value;
-                },
-            })
-            .then(components => {
-                const values = components.map(component => component.value).join('');
-                postMessageToWebView('spa-log', values);
-                return Fingerprint2.x64hash128(values, 31);
-            });
-            
-            postMessageToWebView('fingerprint', { value: fingerprint });
-        }
-
-        function initFirebase() {
-            // Your web app's Firebase configuration
-            const firebaseConfig = {
-                apiKey: 'AIzaSyB4FUVEG5DzSclgXGJeEo9tmq9MlBeSxQM',
-                authDomain: 'nativefirebase2webview.firebaseapp.com',
-                projectId: 'nativefirebase2webview',
-                storageBucket: 'nativefirebase2webview.appspot.com',
-                messagingSenderId: '467182013316',
-                appId: '1:467182013316:web:edc1802f2f3df452b8ebd1'
-            };
-
-            // Initialize Firebase
-            firebase.initializeApp(firebaseConfig);
-            firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
-            log(`Firebase initialized`);
-        }
-
-        function classicLogin() {
-            log(`Calling firebase.auth().signInWithEmailAndPassword...`);
-            document.getElementById('apiCallResponse').innerHTML = '';
-
-            firebase
-                .auth()
-                .signInWithEmailAndPassword('jane.doe@example.com', 'SuperSecretPassword!')
-                .then(({ user }) => {
-                    lastAuthenticatedUser = user;
-                    log(`refreshToken: ${user.refreshToken.slice(0, 5)}...`);
-                    log(user.email + ' - ' + user.uid);
-                });
-        }
-
-        async function classicLogout() {
-            log(`Calling firebase.auth().signOut...`);
-            await firebase.auth().signOut();
-            log('Logout completed.');
-
-            document.getElementById('apiCallResponse').innerHTML = '';
-            lastAuthenticatedUser = null;
-        }
-
-        async function callApi() {
-            document.getElementById('apiCallResponse').innerHTML = '';
-
-            const headers = {
-                'Content-Type': 'application/json',
-            };
-
-            if (lastAuthenticatedUser) {
-                const token = await lastAuthenticatedUser.getIdToken(true);
-                headers['Authorization'] = `Bearer ${token}`;
-            }
-
-            const url = '/api/v1/about';
-            log(`Calling ${url}`);
-            const response = await fetch(url, { headers });
-            log(`Calling ${url} statusCode: ${response.status} - ${response.statusText}`);
-            const data = await response.json();
-
-            document.getElementById('apiCallResponse').innerHTML = JSON.stringify(data, null, 2);
-        }
-
-        function log(info) {
-            const logs = document.getElementById('logs');
-            const lines = logs.value;
-            const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
-            const newLine = `${timestamp} ${info}`;
-            logs.value = newLine + '\n' + lines;
-        }
-
-        function logObject(data) {
-            const logs = document.getElementById('logs');
-            logs.value = JSON.stringify(data, null, 2) + '\n' + logs.value;
-        }
-
-        function clearLogs() {
-            document.getElementById('apiCallResponse').innerHTML = '';
-            document.getElementById('logs').value = '';
-        }
-
-        async function customTokenLogin(customToken) {
-            log(`calling signInWithCustomToken with ${customToken.slice(0, 5)}...`);
-            const { user } = await firebase.auth().signInWithCustomToken(customToken);
-
-            lastAuthenticatedUser = user;
-            log(`refreshToken: ${user.refreshToken.slice(0, 5)}...`);
-            log(user.email + ' - ' + user.uid);
-
-            document.getElementById('apiCallResponse').innerHTML = '';
-        }
-
-        // ********************************************************************************************************
-        // Communication bridge between SPA (webapp) & Webview (native)
-        // ********************************************************************************************************
-        async function postMessageToWebView(type, data) {
-            if (!window.ReactNativeWebView) {
-                log(`ReactNativeWebView not available for sending [${type}] message`);
-                // console.log(type, data);
-                return false;
-            } else {
-                window.ReactNativeWebView.postMessage(JSON.stringify({ type, data }));
-                return true;
-            }
-        };
-
-        async function handleMessage(event) {
-            log(`Verifying event.origin [${event.origin}] vs [${window.location.origin}]`);
-            if (event.origin && event.origin !== window.location.origin) {
-                log(`Unexpected message comming from different origin. Event from [${event.origin}] while expecting from [${window.location.origin}]`);
-                return;
-            }
-            
-            let payload = event.data;
-            if (typeof payload === 'string' || payload instanceof String) {
-                log('event.data is of type string');
-                payload = JSON.parse(payload);
-            }
-
-            const { type, data } = payload;
-            log(`handleMessage called with: [${type}]`);
-            logObject(payload);
-
-            switch (type) {
-                case 'customToken':
-                    customTokenLogin(data);
-                    break;
-
-                default:
-                    break;
-            }
-        }
-    </script>
-
-    <!-- reCAPTCHA v3 demo start -->
-    <script>
-        function onRecaptchaLoadCallback() {
-            log('onRecaptchaLoadCallback called');
-            grecaptcha.ready(function () {
-                log('grecaptcha.ready() called');
-                grecaptcha.execute('6LcGre8UAAAAAKMCSwcWMLu_TdIyJ8oRP_FvR4WQ', { action: 'executeInscriptionStatusValidate' }).then(function (token) {
-                    log(`grecaptcha.execute() called with ${token.slice(0, 5)}...`);
-                    window.ReactNativeWebView.postMessage(token);
-                });
-            });
-        }
-    </script>
-    <script src="https://www.google.com/recaptcha/api.js?render=6LcGre8UAAAAAKMCSwcWMLu_TdIyJ8oRP_FvR4WQ&onload=onRecaptchaLoadCallback"></script>
-    <!-- reCAPTCHA v3 demo end -->
         
 </body>
 
