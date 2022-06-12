@@ -60,7 +60,7 @@ export class initialData1655049309454 implements MigrationInterface {
                     ('051562fc-cec4-4ed2-a930-23c44f7bfa8f', 6, 'Curaçao', 'CURACAO'),
                     ('520628f4-480e-4e8b-9eb1-b73740993bb9', 6, 'Cyprus', 'CYPRUS'),
                     ('2c597a17-57d3-48f2-8276-7925f9fcdcf8', 6, 'Czech Republic', 'CZECH REPUBLIC'),
-                    ('b7231cc9-5e1b-4ea6-91eb-f7bfa51a2a4b', 6, 'Côte d'Ivoire', 'COTE D'IVOIRE'),
+                    ('b7231cc9-5e1b-4ea6-91eb-f7bfa51a2a4b', 6, 'Côte d''Ivoire', 'COTE D''IVOIRE'),
                     ('8b8685f6-bc7f-4702-a616-27335cde2de4', 6, 'Democratic Republic of the Congo', 'DEMOCRATIC REPUBLIC OF THE CONGO'),
                     ('b65fba73-d112-4d97-b38d-68da87ea28de', 6, 'Denmark', 'DENMARK'),
                     ('bb7c97ce-8bfd-453e-960a-1e0fb5ce8965', 6, 'Djibouti', 'DJIBOUTI'),

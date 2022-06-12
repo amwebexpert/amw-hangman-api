@@ -241,6 +241,7 @@ const CATEGORY_ID = 6;
 items.forEach((item) => {
   const normalized = item
     .toUpperCase()
+    .replace("'", "''") // replace internal ' with '' for SQL
     .normalize("NFD")
     .replace(/\p{Diacritic}/gu, "");
   const uuid = uuidv4();
