@@ -1,6 +1,6 @@
 {
   "name": "amw-hangman-api",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Hangman REST API",
   "author": "amwebexpert@gmail.com",
   "private": true,
