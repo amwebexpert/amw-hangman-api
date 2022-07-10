@@ -56,8 +56,8 @@ Since we just add new collections (so far) all the DB tables can be droped and r
 
 ## Nest.js & references
 
-[Installation & Nest.js](docs/nestjs.md)
-[References](docs/references.md)
+- [Installation & Nest.js](docs/nestjs.md)
+- [References](docs/references.md)
 
 ## License
 
