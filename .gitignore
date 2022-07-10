@@ -108,3 +108,4 @@ db/
 setEnv*.sh
 firebaseServiceAccount.json
 .DS_Store
+generated-data.txt
