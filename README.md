@@ -52,7 +52,10 @@ Since we just add new collections (so far) all the DB tables can be droped and r
 * execute `copyToHerokuStaging.sh`
 * ensure to stage new features into heroku repo here: /flutter-projects/heroku-repo/amw-hangman-api
 * git commit -m"feat: my new features"
+* at this point, you can `Reset Database` on `Heroku` project admin console:
+  * Resources > Heroku Postgres > Datastores > postgresql-solid > Settings
 * git push heroku master
+* heroku logs -t
 
 ## Nest.js & references
 
