@@ -34,6 +34,8 @@ or simply
 * create TextDto for POST and PUT input validations
 * create POST and PUT using TextDto for validations
 
+## Add categories and deploy
+
 ### Adding new categories (initialData)
 
 Since we just add new collections (so far) all the DB tables can be droped and re-created:
@@ -44,7 +46,7 @@ Since we just add new collections (so far) all the DB tables can be droped and r
   * then copy paste results into the new file for instance `11111111111-initialData.ts`
 
 
-## Deploy Heroku repo master branch
+### Deploy Heroku repo master branch
 
 * npm install -g heroku
 * heroku --version
@@ -57,11 +59,8 @@ Since we just add new collections (so far) all the DB tables can be droped and r
 * git push heroku master
 * heroku logs -t
 
-## Nest.js & references
+## Nest.js - references - licence
 
 - [Installation & Nest.js](docs/nestjs.md)
 - [References](docs/references.md)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+- [MIT licensed](LICENSE)
