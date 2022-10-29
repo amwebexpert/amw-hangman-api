@@ -1,5 +1,5 @@
 const { v4: uuidv4 } = require("uuid");
-const fs = require('fs');
+const fs = require("fs");
 
 const items = [
   "Aaron",
@@ -22729,10 +22729,10 @@ const items = [
   "zygote",
 ];
 
-const CATEGORY_ID = 8;
+const CATEGORY_ID = 9;
 // ('ff7c8cc1-b016-4fd8-8eae-6a081497aaaa', 4, 'New York', 'NEW YORK');
 items.forEach((item) => {
-  const original = item.replace("'", "''") // replace internal ' with '' for SQL
+  const original = item.replace("'", "''"); // replace internal ' with '' for SQL
   const normalized = item
     .toUpperCase()
     .replace("'", "''") // replace internal ' with '' for SQL
@@ -22741,7 +22741,7 @@ items.forEach((item) => {
   const uuid = uuidv4();
 
   const line = `('${uuid}', ${CATEGORY_ID}, '${original}', '${normalized}'),\n`;
-  fs.appendFile('generated-data.txt', line, function (err) {
+  fs.appendFile("generated-data.txt", line, function (err) {
     if (err) throw err;
     console.log(line);
   });

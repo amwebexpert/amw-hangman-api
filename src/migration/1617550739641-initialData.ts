@@ -13,10 +13,11 @@ export class initialData1617550739641 implements MigrationInterface {
                 ('1ce6872f-aef1-4083-b5de-f6bfcf4abebf', 'en', 'Solar system planets', 'planets'),
                 ('f424fbe0-5b8f-4b51-aa98-1310184900de', 'en', 'Countries', 'countries'),
                 ('cc734f93-e309-4f0b-8d9a-929e0ac5330f', 'en', 'Mix of various words', 'mix'),
-                ('b92e5e8a-ebcf-4af9-860b-3471ff77185a', 'fr', 'Liste interminable de mots divers', 'mix')
+                ('b92e5e8a-ebcf-4af9-860b-3471ff77185a', 'fr', 'Liste interminable de mots divers commencant par A', 'mix'),
+                ('b26f4619-a234-4a27-8ffa-7f8856b30bbb', 'fr', 'Liste interminable de mots divers commencant par B', 'mix')
               ;
         `);
   }
 
-  public async down(queryRunner: QueryRunner): Promise<void> {}
+  public async down(queryRunner: QueryRunner): Promise<void> { }
 }

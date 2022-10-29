@@ -2217,7 +2217,7 @@ export class initialData1657455778034 implements MigrationInterface {
                     ('98db0073-beac-4831-8038-d8957714d6db', 8, 'azoté', 'AZOTE'),
                     ('d090866c-de8f-4b32-8cff-4fc0fd7822ac', 8, 'azoteux', 'AZOTEUX'),
                     ('3085d978-c44c-4e36-965b-69e1a40916b9', 8, 'azotique', 'AZOTIQUE'),
-                    ('5e27f035-568c-4f6f-a76d-2a955688d46a', 8, 'azur', 'AZUR'),
+                    ('5e27f035-568c-4f6f-a76d-2a955688d46a', 8, 'azur', 'AZUR')
             ;
             `);
     }
